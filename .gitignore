@@ -37,3 +37,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Ignore environments that we don't want in github :)
+environment.dcasadevall.ts
