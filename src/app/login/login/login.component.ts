@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService, GoogleLoginProvider, SocialUser} from 'angularx-social-login';
-import {Router} from '@angular/router';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { SSOService } from '../../sso/sso-service';
+import { SSOServiceProvider } from '../../sso/sso.module';
 
 @Component({
   selector: 'app-login-page',
@@ -8,25 +9,21 @@ import {Router} from '@angular/router';
   styleUrls: []
 })
 export class LoginComponent implements OnInit {
-  private user: Promise<SocialUser>;
-
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(@Inject(SSOServiceProvider) private ssoService: SSOService, private router: Router) {
+  }
 
   ngOnInit(): void {
-    console.log('init');
-    this.user = this.signInIfNecessary();
-    if (this.user != null) {
+    if (this.signInIfNecessary()) {
       this.router.navigate(['']);
     }
   }
 
-  async signInIfNecessary(): Promise<SocialUser> {
-    const user = await this.authService.authState.toPromise();
-    console.log(user);
-    if (user != null) {
-      return user;
+  async signInIfNecessary(): Promise<boolean> {
+    const isLoggedIn = await this.ssoService.isLoggedIn$;
+    if (isLoggedIn) {
+      return true;
     }
 
-    return await this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    return await this.ssoService.signIn();
   }
 }

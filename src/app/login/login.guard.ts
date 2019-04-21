@@ -1,28 +1,23 @@
-import {Injectable, OnInit} from '@angular/core';
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
+import { Inject, Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
 import { Observable } from 'rxjs';
-import {AuthService, SocialUser} from 'angularx-social-login';
+import { SSOService } from '../sso/sso-service';
+import { SSOServiceProvider } from '../sso/sso.module';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(@Inject(SSOServiceProvider) private ssoService: SSOService, private router: Router) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (!this.isLoggedIn()) {
+    if (!this.ssoService.isLoggedIn$) {
       this.router.navigate(['login']);
       return false;
     }
 
     return true;
-  }
-
-  private async isLoggedIn(): Promise<boolean> {
-    const user = await this.authService.authState;
-    console.log('logged in user? ' + user.id);
-    return user != null;
   }
 }

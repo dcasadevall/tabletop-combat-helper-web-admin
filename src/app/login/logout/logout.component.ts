@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {AuthService, GoogleLoginProvider} from 'angularx-social-login';
+import { Component, Inject, OnInit } from '@angular/core';
+import { SSOService } from '../../sso/sso-service';
+import { SSOServiceProvider } from '../../sso/sso.module';
 
 @Component({
   selector: 'app-logout',
@@ -7,13 +8,13 @@ import {AuthService, GoogleLoginProvider} from 'angularx-social-login';
   styles: []
 })
 export class LogoutComponent implements OnInit {
-  constructor(private authService: AuthService) { }
+  constructor(@Inject(SSOServiceProvider) private ssoService: SSOService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.logout();
   }
 
-  logout(): void {
-    this.authService.signOut();
+  private logout(): void {
+    this.ssoService.signOut();
   }
 }
