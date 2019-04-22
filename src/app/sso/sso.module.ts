@@ -1,36 +1,29 @@
 import { inject, InjectionToken, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService, AuthServiceConfig, GoogleLoginProvider, SocialLoginModule } from 'angularx-social-login';
 import { environment } from '../../environments/environment';
-import { AngularXSocialLoginService } from './angular-x-social-login.service';
+import { GoogleApiModule, GoogleAuthService, NG_GAPI_CONFIG, NgGapiClientConfig } from 'ng-gapi';
+import { NgGapiSsoService } from './ng-gapi-sso.service';
 
-export const SSOServiceProvider = new InjectionToken(
-  'SSOServiceProvider',
-  { providedIn: SSOModule, factory: () => new AngularXSocialLoginService(inject(AuthService)) }
-);
-
-const config = new AuthServiceConfig([{
-  id: GoogleLoginProvider.PROVIDER_ID,
-  provider: new GoogleLoginProvider(environment.googleClientId)
-}
-]);
-
-export function provideConfig() {
-  return config;
-}
+const gApiClientConfig: NgGapiClientConfig = {
+  client_id: environment.googleClientId,
+  discoveryDocs: ['https://analyticsreporting.googleapis.com/$discovery/rest?version=v4'],
+};
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    SocialLoginModule
-  ],
-  providers: [
-    {
-      provide: AuthServiceConfig,
-      useFactory: provideConfig
-    }
-  ],
+    GoogleApiModule.forRoot({
+      provide: NG_GAPI_CONFIG,
+      useValue: gApiClientConfig
+    }),
+  ]
 })
+
 export class SSOModule {
 }
+
+export const SSOServiceProvider = new InjectionToken(
+  'SSOServiceProvider',
+  { providedIn: SSOModule, factory: () => new NgGapiSsoService(inject(GoogleAuthService)) }
+);

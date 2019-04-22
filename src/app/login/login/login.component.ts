@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   }
 
   async signInIfNecessary(): Promise<boolean> {
-    const isLoggedIn = await this.ssoService.isLoggedIn$;
+    const isLoggedIn = await this.ssoService.isSignedIn$;
     if (isLoggedIn) {
       return true;
     }
