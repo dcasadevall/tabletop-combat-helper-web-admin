@@ -3,16 +3,25 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { UiModule } from './ui/ui.module';
+import { AppRoutingModule } from './app-routing.module';
+import { LoginModule } from './login/login.module';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { HomePageComponent } from './home-page/home-page.component';
+import { SSOModule } from './sso/sso.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomePageComponent
   ],
   imports: [
+    AngularFontAwesomeModule,
     BrowserModule,
-    UiModule
+    UiModule,
+    AppRoutingModule,
+    LoginModule,
+    SSOModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
