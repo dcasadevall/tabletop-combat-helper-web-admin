@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { environment } from '../../environments/environment';
 import { GoogleApiModule, GoogleAuthService, NG_GAPI_CONFIG, NgGapiClientConfig } from 'ng-gapi';
 import { NgGapiSsoService } from './ng-gapi-sso.service';
+import { SSOService } from './sso-service';
 
 const gApiClientConfig: NgGapiClientConfig = {
   client_id: environment.googleClientId,
@@ -23,7 +24,7 @@ const gApiClientConfig: NgGapiClientConfig = {
 export class SSOModule {
 }
 
-export const SSOServiceProvider = new InjectionToken(
+export const SSOServiceProvider = new InjectionToken<SSOService>(
   'SSOServiceProvider',
   { providedIn: SSOModule, factory: () => new NgGapiSsoService(inject(GoogleAuthService)) }
 );
