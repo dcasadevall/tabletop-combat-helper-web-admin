@@ -12,18 +12,16 @@ export class LoginComponent implements OnInit {
   constructor(@Inject(SSOServiceProvider) private ssoService: SSOService, private router: Router) {
   }
 
-  ngOnInit(): void {
-    if (this.signInIfNecessary()) {
+  public ngOnInit(): void {
+    if (this.ssoService.isSignedIn) {
       this.router.navigate(['']);
-    }
-  }
-
-  async signInIfNecessary(): Promise<boolean> {
-    const isLoggedIn = await this.ssoService.isSignedIn$;
-    if (isLoggedIn) {
-      return true;
+      return;
     }
 
-    return await this.ssoService.signIn();
+    this.ssoService.signIn().then(success => {
+      if (success) {
+        this.router.navigate(['']);
+      }
+    });
   }
 }

@@ -17,8 +17,8 @@ export class NgGapiSsoService implements SSOService {
     this.googleAuth.getAuth().subscribe(auth => this.authenticatedUsers.next(auth.currentUser.get()));
   }
 
-  public get isSignedIn$(): Observable<boolean> {
-    return this.authenticatedUsers.pipe(first(), map(user => user != null && user.getBasicProfile() != null));
+  public get isSignedIn(): boolean {
+    return sessionStorage.getItem(NgGapiSsoService.SESSION_STORAGE_KEY) != null;
   }
 
   public get signedInWithEmail$(): Observable<string> {
@@ -53,7 +53,12 @@ export class NgGapiSsoService implements SSOService {
 
   public signOut(): Promise<boolean> {
     return this.googleAuth.getAuth().pipe(map(auth => {
-      return auth.signOut();
+      const result = auth.signOut();
+      if (result) {
+        sessionStorage.removeItem(NgGapiSsoService.SESSION_STORAGE_KEY);
+      }
+
+      return result;
     })).toPromise();
   }
 }

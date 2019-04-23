@@ -2,7 +2,6 @@ import { Component, Inject, Input } from '@angular/core';
 import { SSOService } from '../../sso/sso-service';
 import { SSOServiceProvider } from '../../sso/sso.module';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -15,8 +14,8 @@ export class HeaderComponent {
     return this.ssoService.signedInWithEmail$;
   }
 
-  public get isLoggedIn$(): Observable<boolean> {
-    return this.ssoService.isSignedIn$;
+  public get isLoggedIn(): boolean {
+    return this.ssoService.isSignedIn;
   }
 
   constructor(@Inject(SSOServiceProvider) private ssoService: SSOService) {

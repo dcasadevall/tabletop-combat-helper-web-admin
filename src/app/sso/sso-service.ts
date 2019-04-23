@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 
 export interface SSOService {
   /**
-   * Emits true if the user is currently signed in or whenever they do so.
+   * Emits true if the user is currently signed in.
    */
-  isSignedIn$: Observable<boolean>;
+  isSignedIn: boolean;
   /**
    * Observable stream of emails associated to a newly signed in SSO account.
    * Will emit null if a user signs out (this is useful to allow a guard based on this stream).
