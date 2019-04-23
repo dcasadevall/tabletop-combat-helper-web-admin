@@ -11,13 +11,11 @@ const routes: Routes = [
   {
     path: '',
     component: HomePageComponent,
+  },
+  {
+    path: 'campaigns',
+    component: CampaignListComponent,
     canActivate: [LoginGuard],
-    children: [
-      {
-        path: 'campaigns',
-        component: CampaignListComponent
-      }
-    ]
   },
   {
     path: 'login',
