@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CampaignService } from './campaign-service';
-import { Observable, of } from 'rxjs';
 import { Campaign } from './models/campaign';
 import { deserialize } from 'serializr';
 import { SerializableCampaign } from './models/serializable-campaign';
-import { UUID } from 'angular2-uuid';
 
 /**
  * Implementation of CampaignService that relies on SessionStorage.
@@ -28,17 +26,18 @@ export class SessionStorageBasedCampaignService implements CampaignService {
     return Promise.resolve(this._cachedCampaigns);
   }
 
-  public async addCampaign(name: string): Promise<boolean> {
+  public async addCampaign(name: string): Promise<string> {
     const campaigns = await this.campaigns;
-    campaigns.push(new SerializableCampaign(name, UUID.UUID()));
+    const campaign = new SerializableCampaign(name, Math.random().toString());
+    campaigns.push(campaign);
     localStorage.setItem(SessionStorageBasedCampaignService.CAMPAIGN_STORAGE_KEY, JSON.stringify(this.campaigns));
 
-    return Promise.resolve(true);
+    return Promise.resolve(campaign.campaignId);
   }
 
-  public async deleteCampaign(campaignId: UUID): Promise<boolean> {
+  public async deleteCampaign(campaignId: string): Promise<boolean> {
     let campaigns = await this.campaigns;
-    const campaign = campaigns.filter((campaignInList) => campaignInList.campaignId === campaignId.toString()).pop();
+    const campaign = campaigns.filter((campaignInList) => campaignInList.campaignId === campaignId).pop();
     if (campaign == null) {
       throw new Error('Invalid campaign id: ' + campaignId);
     }
