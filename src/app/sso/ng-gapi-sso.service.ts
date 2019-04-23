@@ -10,6 +10,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 })
 export class NgGapiSsoService implements SSOService {
   private static SESSION_STORAGE_KEY = 'google-accessToken';
+  private static EMAIL_STORAGE_KEY = 'google-email';
   private authenticatedUsers: ReplaySubject<GoogleUser> = new ReplaySubject(1);
 
   constructor(private googleAuth: GoogleAuthService) {
@@ -20,20 +21,8 @@ export class NgGapiSsoService implements SSOService {
     return sessionStorage.getItem(NgGapiSsoService.SESSION_STORAGE_KEY) != null;
   }
 
-  public get signedInWithEmail$(): Observable<string> {
-    return this.authenticatedUsers.pipe(first(), map(user => NgGapiSsoService.getEmail(user)));
-  }
-
-  private static getEmail(user: GoogleUser): string {
-    if (user == null) {
-      return null;
-    }
-
-    if (user.getBasicProfile() == null) {
-      return null;
-    }
-
-    return user.getBasicProfile().getEmail();
+  public get email(): string {
+    return sessionStorage.getItem(NgGapiSsoService.EMAIL_STORAGE_KEY);
   }
 
   public signIn(): Promise<boolean> {
@@ -43,6 +32,10 @@ export class NgGapiSsoService implements SSOService {
 
         sessionStorage.setItem(
           NgGapiSsoService.SESSION_STORAGE_KEY, signedInUser.getAuthResponse().access_token
+        );
+
+        sessionStorage.setItem(
+          NgGapiSsoService.EMAIL_STORAGE_KEY, signedInUser.getBasicProfile().getEmail()
         );
 
         return true;

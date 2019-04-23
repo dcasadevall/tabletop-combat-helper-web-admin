@@ -1,5 +1,3 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
 export interface SSOService {
   /**
@@ -7,10 +5,9 @@ export interface SSOService {
    */
   isSignedIn: boolean;
   /**
-   * Observable stream of emails associated to a newly signed in SSO account.
-   * Will emit null if a user signs out (this is useful to allow a guard based on this stream).
+   * If not null, the email associated to the SSO account used to sign in.
    */
-  signedInWithEmail$: Observable<string>;
+  email: string;
 
   /**
    * Attempts to sign in with the default SSO provider (currently the only implementation of this interface
