@@ -4,7 +4,6 @@ import { GoogleAuthService } from 'ng-gapi';
 import GoogleUser = gapi.auth2.GoogleUser;
 import { first, map } from 'rxjs/operators';
 import { Observable, ReplaySubject } from 'rxjs';
-import GoogleAuth = gapi.auth2.GoogleAuth;
 
 @Injectable({
   providedIn: 'root'

@@ -8,6 +8,7 @@ import { LoginModule } from './login/login.module';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { HomePageComponent } from './home-page/home-page.component';
 import { SSOModule } from './sso/sso.module';
+import { CampaignsModule } from './campaigns/campaigns.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { SSOModule } from './sso/sso.module';
   imports: [
     AngularFontAwesomeModule,
     BrowserModule,
+    CampaignsModule,
     UiModule,
     AppRoutingModule,
     LoginModule,
