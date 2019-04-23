@@ -14,7 +14,7 @@ export class SerializableCampaign implements Campaign {
     return this._name;
   }
 
-  public constructor(public readonly name: string, campaignId: string) {
+  public constructor(name: string, campaignId: string) {
     this._name = name;
     this._campaignId = campaignId;
   }
