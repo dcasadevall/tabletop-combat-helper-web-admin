@@ -15,14 +15,11 @@ export class LoginGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // Tap triggers the side effect if no user is authenticated.
-    // Map returns the proper boolean value if email is set or not.
-    // First() is necessary because guards need the obeservable to be completed before it can route.
-    return this.ssoService.signedInWithEmail$.pipe(first(), tap((email: string) => {
-        if (email === null) {
-          this.router.navigate(['login']);
-        }
-      }
-    ), map((email: string) => email != null));
+    if (!this.ssoService.isSignedIn) {
+      this.router.navigate(['login']);
+      return false;
+    }
+
+    return true;
   }
 }

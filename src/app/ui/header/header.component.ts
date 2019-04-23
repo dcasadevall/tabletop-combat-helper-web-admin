@@ -1,7 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
 import { SSOService } from '../../sso/sso-service';
 import { SSOServiceProvider } from '../../sso/sso.module';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -10,8 +9,8 @@ import { Observable } from 'rxjs';
 })
 export class HeaderComponent {
   @Input() title: string;
-  public get email$(): Observable<string> {
-    return this.ssoService.signedInWithEmail$;
+  public get email(): string {
+    return this.ssoService.email;
   }
 
   public get isLoggedIn(): boolean {
