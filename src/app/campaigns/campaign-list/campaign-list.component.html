@@ -1,4 +1,2 @@
-
-<ul class="list-group" *ngFor="let campaign of campaigns | async; index as i">
-  <li class="list-group-item">{{campaign.name}}</li>
-</ul>
+<ngx-datatable class="material" [rows]="rows" [rowHeight]=50 [headerHeight]=50 [columnMode]="force"
+               [columns]="columns"></ngx-datatable>

@@ -9,6 +9,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { HomePageComponent } from './home-page/home-page.component';
 import { SSOModule } from './sso/sso.module';
 import { CampaignsModule } from './campaigns/campaigns.module';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { CampaignsModule } from './campaigns/campaigns.module';
     AngularFontAwesomeModule,
     BrowserModule,
     CampaignsModule,
+    NgxDatatableModule,
     UiModule,
     AppRoutingModule,
     LoginModule,

@@ -1,5 +1,4 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Campaign } from '../models/campaign';
 import { CampaignService } from '../campaign-service';
 
 @Component({
@@ -8,11 +7,19 @@ import { CampaignService } from '../campaign-service';
   styleUrls: ['./campaign-list.component.css']
 })
 export class CampaignListComponent implements OnInit {
-  public campaigns: Promise<Campaign[]>;
+  public columns = [
+    { prop: 'Campaign Name' },
+    { name: 'Packages' },
+    { name: '' }
+  ];
+
+  public rows = [];
 
   constructor(@Inject('CampaignServiceProvider') private campaignService: CampaignService) { }
 
   ngOnInit(): void {
-    this.campaigns = this.campaignService.campaigns;
+    this.campaignService.campaigns.then(campaigns => {
+      this.rows = campaigns.map((campaign) => new Object({ 'Campaign Name' : campaign.name }));
+    });
   }
 }
