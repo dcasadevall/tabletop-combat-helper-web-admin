@@ -10,6 +10,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { SSOModule } from './sso/sso.module';
 import { CampaignsModule } from './campaigns/campaigns.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
   ],
   imports: [
     AngularFontAwesomeModule,
+    BrowserAnimationsModule,
     BrowserModule,
     CampaignsModule,
     NgxDatatableModule,
