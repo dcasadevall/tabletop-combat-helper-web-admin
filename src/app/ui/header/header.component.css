@@ -3,3 +3,11 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+.brand-logo {
+  padding-left: 15px;
+}
+
+mz-navbar-item a.active {
+  background-color: rgba(0,0,0,0.1);
+}

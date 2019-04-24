@@ -1,21 +1,21 @@
-<nav class="navbar navbar-dark bg-dark mb-5">
-  <a class="navbar-brand" href="/">{{title}}</a>
-  <div class="navbar-expand mr-auto" *ngIf="isLoggedIn">
-    <ul class="navbar-nav mr-auto">
-      <li class="navbar-nav">
-        <a class="nav-item nav-link" routerLinkActive="active" routerLink="/campaigns">Campaigns</a>
-        <a class="nav-item nav-link" routerLinkActive="active" routerLink="/packages">Packages</a>
-        <a class="nav-item nav-link" routerLinkActive="active" routerLink="/units">Units</a>
-        <a class="nav-item nav-link" routerLinkActive="active" routerLink="/maps">Maps</a>
-      </li>
+<header>
+    <mz-navbar>
+      <a href="#" class="brand-logo">{{title}}</a>
+      <mz-navbar-item-container [align]="'right'" *ngIf="isLoggedIn">
+        <mz-navbar-item><a routerLink="/campaigns" routerLinkActive="active">Campaigns</a></mz-navbar-item>
+        <mz-navbar-item><a routerLink="/maps" routerLinkActive="active">Maps</a></mz-navbar-item>
+        <mz-navbar-item><a routerLink="/units" routerLinkActive="active">Units</a></mz-navbar-item>
+        <mz-navbar-item><a routerLink="/packages" routerLinkActive="active">Packages</a></mz-navbar-item>
+        <mz-navbar-item>
+          <a class="dropdown-button" href="javascript:void(0)" data-activates="account-dropdown">
+            {{email}}
+            <i class="material-icons right">arrow_drop_down</i>
+          </a>
+        </mz-navbar-item>
+      </mz-navbar-item-container>
+    </mz-navbar>
+
+    <ul id="account-dropdown" class="dropdown-content">
+      <li><a href="javascript:void(0)" routerLink="/logout">Sign Out</a></li>
     </ul>
-  </div>
-  <div class="navbar-expand ml-auto navbar-nav" *ngIf="isLoggedIn">
-    <div class="navbar-nav">
-      <span class="nav-item nav-link">{{email}}</span>
-      <a class="nav-item nav-link" routerLink="/logout">
-        <i class="fa fa-close"></i>
-      </a>
-    </div>
-  </div>
-</nav>
+</header>
