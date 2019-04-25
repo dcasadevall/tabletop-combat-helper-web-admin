@@ -3,6 +3,7 @@ import { CampaignService } from './campaign-service';
 import { Campaign } from './models/campaign';
 import { deserialize } from 'serializr';
 import { SerializableCampaign } from './models/serializable-campaign';
+import { Observable, of } from 'rxjs';
 
 /**
  * Implementation of CampaignService that relies on SessionStorage.
@@ -16,27 +17,30 @@ export class SessionStorageBasedCampaignService implements CampaignService {
 
   private _cachedCampaigns: Campaign[];
 
-  public get campaigns(): Promise<Campaign[]> {
+  public get campaigns(): Observable<Campaign[]> {
+    return of(this.campaignsSync);
+  }
+
+  private get campaignsSync() {
     if (this._cachedCampaigns == null) {
       let campaigns = JSON.parse(localStorage.getItem(SessionStorageBasedCampaignService.CAMPAIGN_STORAGE_KEY));
       campaigns = campaigns != null ? campaigns : [];
       this._cachedCampaigns = campaigns.map((object) => deserialize(SerializableCampaign, object));
     }
 
-    return Promise.resolve(this._cachedCampaigns);
+    return this._cachedCampaigns;
   }
 
   public async addCampaign(name: string): Promise<string> {
-    const campaigns = await this.campaigns;
     const campaign = new SerializableCampaign(name, Math.random().toString());
-    campaigns.push(campaign);
-    localStorage.setItem(SessionStorageBasedCampaignService.CAMPAIGN_STORAGE_KEY, JSON.stringify(this.campaigns));
+    this.campaignsSync.push(campaign);
+    localStorage.setItem(SessionStorageBasedCampaignService.CAMPAIGN_STORAGE_KEY, JSON.stringify(this.campaignsSync));
 
     return Promise.resolve(campaign.campaignId);
   }
 
   public async deleteCampaign(campaignId: string): Promise<boolean> {
-    let campaigns = await this.campaigns;
+    let campaigns = await this.campaigns.toPromise();
     const campaign = campaigns.filter((campaignInList) => campaignInList.campaignId === campaignId).pop();
     if (campaign == null) {
       throw new Error('Invalid campaign id: ' + campaignId);

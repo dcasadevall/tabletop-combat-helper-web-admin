@@ -3,19 +3,13 @@ import { identifier, primitive, serializable } from 'serializr';
 
 export class SerializableCampaign implements Campaign {
   @serializable(identifier())
-  private readonly _campaignId: string;
-  public get campaignId(): string {
-    return this._campaignId;
-  }
+  public campaignId: string;
 
   @serializable(primitive())
-  private readonly _name: string;
-  public get name(): string {
-    return this._name;
-  }
+  public name: string;
 
-  public constructor(name: string, campaignId: string) {
-    this._name = name;
-    this._campaignId = campaignId;
+  public constructor(name?: string, campaignId?: string) {
+    this.name = name;
+    this.campaignId = campaignId;
   }
 }

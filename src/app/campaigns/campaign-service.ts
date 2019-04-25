@@ -1,4 +1,5 @@
 import { Campaign } from './models/campaign';
+import { Observable } from 'rxjs';
 
 /**
  * Service providing information about the campaigns created by the current user.
@@ -7,7 +8,7 @@ export interface CampaignService {
   /**
    * Returns the list of campaigns created by the current user.
    */
-  campaigns: Promise<Campaign[]>;
+  campaigns: Observable<Campaign[]>;
 
   /**
    * Adds a new campaign, returning the newly created campaign's UUID if successful, or null otherwise.

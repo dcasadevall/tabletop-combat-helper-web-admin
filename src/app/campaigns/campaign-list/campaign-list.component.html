@@ -1,14 +1,32 @@
+<!-- Table -->
 <div class="row">
   <div class="col s12">
-    <ngx-datatable class="material" [rows]="rows" [rowHeight]=50 [headerHeight]=50 [columnMode]="force"
+    <ngx-datatable class="material" [rows]="rows$ | async" [rowHeight]=50 [headerHeight]=50 [columnMode]="force"
                    [columns]="columns"></ngx-datatable>
   </div>
 </div>
 
+<!-- Button -->
 <div class="row">
   <div class="col s12 center-align">
-    <button mz-button [float]="true">
+    <button mz-button [float]="true" (click)="addCampaignModal.openModal()">
       <i class="material-icons">add</i>
     </button>
   </div>
 </div>
+
+<!-- Modal -->
+<mz-modal #addCampaignModal [fixedFooter]="true" [bottomSheet]="false" [options]="modalOptions">
+  <mz-modal-header>
+    <h4>Create Campaign</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <app-add-campaign-form #addCampaignForm (campaignAdded)="handleCampaignAdded()"></app-add-campaign-form>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+    <button mz-button #createCampaignButton [disabled]="!addCampaignForm.form.valid"
+            (click)="handleCreateCampaignClicked(addCampaignForm, addCampaignModal)">Create
+    </button>
+  </mz-modal-footer>
+</mz-modal>
