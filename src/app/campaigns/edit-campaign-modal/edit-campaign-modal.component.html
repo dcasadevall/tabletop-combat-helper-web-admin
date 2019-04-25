@@ -1,6 +1,6 @@
 <mz-modal #modal [fixedFooter]="true" [bottomSheet]="false" [options]="modalOptions">
   <mz-modal-header>
-    <h4>Create Campaign</h4>
+    <h4>{{isNewCampaign ? 'Create' : 'Edit'}} Campaign</h4>
   </mz-modal-header>
   <mz-modal-content>
     <app-edit-campaign-form #form></app-edit-campaign-form>
@@ -8,7 +8,7 @@
   <mz-modal-footer>
     <button mz-button [flat]="true" mz-modal-close>Cancel</button>
     <button mz-button #createCampaignButton [disabled]="!form.form.valid"
-            (click)="handleCreateCampaignClicked()">Create
+            (click)="handleCreateCampaignClicked()">{{isNewCampaign ? 'Create' : 'Save'}}
     </button>
   </mz-modal-footer>
 </mz-modal>

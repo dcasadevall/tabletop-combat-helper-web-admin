@@ -1,10 +1,8 @@
-import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { CampaignService } from '../campaign-service';
-import { EditCampaignFormComponent } from '../add-campaign-form/edit-campaign-form.component';
-import { MzModalComponent } from 'ngx-materialize';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
-import { DeleteCampaignModalComponent } from '../delete-campaign-modal/delete-campaign-modal.component';
+import { EditCampaignModalComponent } from '../edit-campaign-modal/edit-campaign-modal.component';
 
 @Component({
   selector: 'app-campaign-list',
@@ -12,14 +10,31 @@ import { DeleteCampaignModalComponent } from '../delete-campaign-modal/delete-ca
   styleUrls: ['./campaign-list.component.css']
 })
 export class CampaignListComponent {
+  @ViewChild('editCampaignModal')
+  public editCampaignModal: EditCampaignModalComponent;
+
   public get rows$(): Observable<Object[]> {
     return this.campaignService.campaigns.pipe(first(),
       map(campaigns => campaigns.map(campaign => new Object({
-        'Campaign Name': campaign.name,
-        'campaignId': campaign.campaignId
+        'campaign': campaign
       }))));
   }
 
   constructor(@Inject('CampaignService') private campaignService: CampaignService) {
+  }
+
+  public handleRowActivated(event: any) {
+    if (event.type !== 'click') {
+      return;
+    }
+
+    // See https://github.com/swimlane/ngx-datatable/issues/471
+    // for the bug that forces us to this workaround.
+    if (event.cellIndex === 2) {
+      return;
+    }
+
+    event.event.stopPropagation();
+    this.editCampaignModal.openModal(event.row['campaign']);
   }
 }

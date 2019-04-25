@@ -16,29 +16,28 @@ export class DeleteCampaignModalComponent {
   @ViewChild('modal')
   public modal: MzModalComponent;
 
-  private _campaignId: string;
-  private _campaignName: string;
+  private _campaign: Campaign;
+
   public get campaignName(): string {
-    return this._campaignName;
+    if (this._campaign == null) {
+      return null;
+    }
+
+    return this._campaign.name;
   }
 
-  constructor(@Inject('CampaignService') private campaignService: CampaignService, private toastService: MzToastService) { }
+  constructor(@Inject('CampaignService') private campaignService: CampaignService, private toastService: MzToastService) {
+  }
 
-  public openModal(campaignId: string, campaignName: string): void {
-    this._campaignId = campaignId;
-    this._campaignName = campaignName;
+  public openModal(campaign: Campaign): void {
+    this._campaign = campaign;
 
     this.modal.openModal();
   }
 
   public handleDeleteClicked(): void {
-    this.campaignService.deleteCampaign(this._campaignId).then(success => {
-      if (!success) {
-        this.toastService.show('Error deleting campaign.', 4000, 'red');
-        return;
-      }
-
+    this.campaignService.deleteCampaign(this._campaign.campaignId).then(() => {
       this.modal.closeModal();
-    });
+    }).catch(reason => this.toastService.show('Error deleting campaign.', 4000, 'red'));
   }
 }

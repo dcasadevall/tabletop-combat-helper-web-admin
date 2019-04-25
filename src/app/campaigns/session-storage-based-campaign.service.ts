@@ -39,8 +39,19 @@ export class SessionStorageBasedCampaignService implements CampaignService {
     return Promise.resolve(campaign.campaignId);
   }
 
-  public async deleteCampaign(campaignId: string): Promise<boolean> {
-    let campaigns = await this.campaigns.toPromise();
+  public async saveCampaign(name: string, campaignId: string): Promise {
+    const existingCampaign = this.campaignsSync.find((campaignInArray) => campaignInArray.campaignId === campaignId);
+    if (existingCampaign === null) {
+      throw new Error('Invalid campaignId: ' + campaignId);
+    }
+
+    existingCampaign.name = name;
+    localStorage.setItem(SessionStorageBasedCampaignService.CAMPAIGN_STORAGE_KEY, JSON.stringify(this.campaignsSync));
+    return Promise.resolve();
+  }
+
+  public async deleteCampaign(campaignId: string): Promise {
+    const campaigns = await this.campaigns.toPromise();
     const campaign = campaigns.filter((campaignInList) => campaignInList.campaignId === campaignId).pop();
     if (campaign == null) {
       throw new Error('Invalid campaign id: ' + campaignId);
@@ -51,6 +62,6 @@ export class SessionStorageBasedCampaignService implements CampaignService {
     localStorage.setItem(SessionStorageBasedCampaignService.CAMPAIGN_STORAGE_KEY, JSON.stringify(campaigns));
     this._cachedCampaigns = null;
 
-    return Promise.resolve(true);
+    return Promise.resolve();
   }
 }

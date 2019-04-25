@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, Inject, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SerializableCampaign } from '../models/serializable-campaign';
 import { CampaignService } from '../campaign-service';
@@ -35,14 +35,39 @@ export class EditCampaignFormComponent implements OnInit {
     });
   }
 
-  public onSubmit(): Promise<boolean> {
+  public initialize(campaign: Campaign | null) {
+    this.form.reset();
+
+    if (campaign != null) {
+      this.campaign.campaignId = campaign.campaignId;
+      this.campaign.name = campaign.name;
+
+      // TODO: Shouldn't data binding just work here?
+      this.form.controls['name'].setValue(this.campaign.name);
+    }
+  }
+
+  public onSubmit(): Promise {
     if (!this.form.valid) {
       return Promise.resolve(false);
     }
 
+    if (this.campaign.campaignId != null) {
+      return this.saveCampaign(this.campaign.campaignId);
+    } else {
+      return this.addCampaign();
+    }
+  }
+
+  private addCampaign(): Promise {
     this.campaign = Object.assign({}, this.form.value);
     return this.campaignService.addCampaign(this.campaign.name).then(campaignId => {
       return campaignId != null;
     });
+  }
+
+  private saveCampaign(campaignId: string): Promise {
+    this.campaign = Object.assign({}, this.form.value);
+    return this.campaignService.saveCampaign(this.campaign.name, campaignId);
   }
 }

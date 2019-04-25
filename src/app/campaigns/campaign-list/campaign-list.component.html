@@ -3,22 +3,24 @@
   <div class="col s12">
     <ngx-datatable class="material"
                    [rows]="rows$ | async"
+                   (activate)="handleRowActivated($event)"
                    [rowHeight]=70
                    [headerHeight]=50
                    [columnMode]="flex">
       <ngx-datatable-column name="Campaign Name" [width]="200" [flexGrow]="1">
         <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-          {{row['Campaign Name']}}
+          {{row['campaign'].name}}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Packages" [flexGrow]="3">
+      <ngx-datatable-column name="Packages" [width]="220" [flexGrow]="3">
         <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-          {{row['Packages'] == null || row['Packages'].length == 0 ? "[None]" : row['Packages'].join(', ')}}
+          {{row['campaign'].packages == null || row['campaign'].packages.length == 0 ? "[None]" :
+          row['campaign'].campaign.join(', ')}}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="" [flexGrow]="1">
+      <ngx-datatable-column name="" [width]="80" [flexGrow]="1">
         <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-          <button class="red right" (click)="deleteCampaignModal.openModal(row['campaignId'], row['Campaign Name'])"
+          <button class="red right" (click)="deleteCampaignModal.openModal(row['campaign'])"
                   [float]="true" mz-button>
             <i class="material-icons">delete</i>
           </button>
@@ -31,12 +33,12 @@
 <!-- Add Campaign Button -->
 <div class="row">
   <div class="col s12 center-align">
-    <button mz-button [float]="true" (click)="addCampaignModal.openModal()">
+    <button mz-button [float]="true" (click)="editCampaignModal.openModal()">
       <i class="material-icons">add</i>
     </button>
   </div>
 </div>
 
 <!-- Modals -->
-<app-add-campaign-modal #addCampaignModal></app-add-campaign-modal>
+<app-edit-campaign-modal #editCampaignModal></app-edit-campaign-modal>
 <app-delete-campaign-modal #deleteCampaignModal></app-delete-campaign-modal>
