@@ -1,0 +1,12 @@
+.ngx-datatable {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+:host /deep/ .datatable-body-row button {
+  opacity: 0;
+}
+
+:host /deep/ .datatable-body-row:hover button {
+  opacity: 1;
+}

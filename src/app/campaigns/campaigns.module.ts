@@ -7,18 +7,20 @@ import {
   MzButtonModule,
   MzInputModule,
   MzModalModule,
-  MzSelectModule,
+  MzSelectModule, MzToastModule,
   MzValidationModule
 } from 'ngx-materialize';
 import { AddCampaignFormComponent } from './add-campaign-form/add-campaign-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CampaignRowsPipe } from './campaign-list/campaign-rows.pipe';
+import { DeleteCampaignModalComponent } from './delete-campaign-modal/delete-campaign-modal.component';
+import { AddCampaignModalComponent } from './add-campaign-modal/add-campaign-modal.component';
 
 @NgModule({
   declarations: [
     CampaignListComponent,
-    CampaignRowsPipe,
-    AddCampaignFormComponent
+    AddCampaignFormComponent,
+    DeleteCampaignModalComponent,
+    AddCampaignModalComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import { CampaignRowsPipe } from './campaign-list/campaign-rows.pipe';
     MzButtonModule,
     MzInputModule,
     MzSelectModule,
+    MzToastModule,
     MzValidationModule,
     MzModalModule,
     NgxDatatableModule

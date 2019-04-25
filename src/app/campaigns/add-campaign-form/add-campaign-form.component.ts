@@ -10,9 +10,6 @@ import { Campaign } from '../models/campaign';
   styleUrls: ['./add-campaign-form.component.css']
 })
 export class AddCampaignFormComponent implements OnInit {
-  @Output()
-  campaignAdded: EventEmitter<Campaign> = new EventEmitter<Campaign>();
-
   public modalOptions: Materialize.ModalOptions = {
     dismissible: false, // Modal can't be dismissed by clicking outside of the modal
   };

@@ -1,0 +1,13 @@
+<mz-modal #modal [fixedFooter]="true" [bottomSheet]="false" [options]="modalOptions">
+  <mz-modal-header>
+    <h4>Delete Campaign</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    Are you sure you want to delete the campaign: [{{campaignName}}]?
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+    <button mz-button class="red" #deleampaignButton (click)="handleDeleteClicked()">Delete
+    </button>
+  </mz-modal-footer>
+</mz-modal>

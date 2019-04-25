@@ -47,7 +47,7 @@ export class SessionStorageBasedCampaignService implements CampaignService {
     }
 
     const index = campaigns.indexOf(campaign);
-    campaigns = campaigns.slice(0, index - 1).concat(campaigns.slice(index + 1));
+    campaigns.splice(index, 1);
     localStorage.setItem(SessionStorageBasedCampaignService.CAMPAIGN_STORAGE_KEY, JSON.stringify(campaigns));
     this._cachedCampaigns = null;
 
