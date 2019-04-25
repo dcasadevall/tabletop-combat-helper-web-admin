@@ -2,29 +2,9 @@
   <mz-navbar>
     <a href="#" class="brand-logo">{{title}}</a>
     <ng-container *ngIf="isLoggedIn">
-      <mz-navbar-item-container class="hide-on-med-and-down" [align]="'right'">
+      <mz-navbar-item-container class="right">
         <mz-navbar-item>
-          <a routerLink="/campaigns" routerLinkActive="active">Campaigns</a>
-        </mz-navbar-item>
-        <mz-navbar-item>
-          <a routerLink="/maps" routerLinkActive="active">Maps</a>
-        </mz-navbar-item>
-        <mz-navbar-item>
-          <a routerLink="/units" routerLinkActive="active">Units</a>
-        </mz-navbar-item>
-        <mz-navbar-item>
-          <a routerLink="/packages" routerLinkActive="active">Packages</a>
-        </mz-navbar-item>
-        <mz-navbar-item>
-          <a class="dropdown-button" href="javascript:void(0)" data-activates="account-dropdown">
-            {{email}}
-            <i class="material-icons right">arrow_drop_down</i>
-          </a>
-        </mz-navbar-item>
-      </mz-navbar-item-container>
-      <mz-navbar-item-container class="hide-on-large-only">
-        <mz-navbar-item>
-          <a id="btn-sidenav"><i class="material-icons">menu</i></a>
+          <a href="#" id="btn-sidenav"><i class="material-icons">menu</i></a>
         </mz-navbar-item>
       </mz-navbar-item-container>
     </ng-container>
@@ -38,7 +18,9 @@
 <!-- Side nav -->
 <mz-sidenav
   *ngIf="isLoggedIn"
+  [edge]="'right'"
   [id]="'sidenav'"
+  [collapseButtonId]="'btn-sidenav'"
 >
   <li>
     <div class="user-view">
@@ -46,7 +28,7 @@
         <img src="assets/img/sidenav_bg.png">
       </div>
       <a href="#user"><img class="circle" src="{{imageUrl}}"></a>
-      <a href="#name"><span class="text name">{{name}}</span></a>
+      <a href="#name"><span class="white-text name">{{name}}</span></a>
       <a href="#email"><span class="white-text email">{{email}}</span></a>
     </div>
   </li>
