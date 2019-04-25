@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { AddCampaignFormComponent } from '../add-campaign-form/add-campaign-form.component';
+import { EditCampaignFormComponent } from '../add-campaign-form/edit-campaign-form.component';
 import { MzModalComponent } from 'ngx-materialize';
 
 @Component({
@@ -15,7 +15,7 @@ export class AddCampaignModalComponent {
   public modal: MzModalComponent;
 
   @ViewChild('form')
-  public form: AddCampaignFormComponent;
+  public form: EditCampaignFormComponent;
 
   public openModal(): void {
     this.modal.openModal();

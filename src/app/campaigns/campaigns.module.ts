@@ -10,7 +10,7 @@ import {
   MzSelectModule, MzToastModule,
   MzValidationModule
 } from 'ngx-materialize';
-import { AddCampaignFormComponent } from './add-campaign-form/add-campaign-form.component';
+import { EditCampaignFormComponent } from './add-campaign-form/edit-campaign-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeleteCampaignModalComponent } from './delete-campaign-modal/delete-campaign-modal.component';
 import { AddCampaignModalComponent } from './add-campaign-modal/add-campaign-modal.component';
@@ -18,7 +18,7 @@ import { AddCampaignModalComponent } from './add-campaign-modal/add-campaign-mod
 @NgModule({
   declarations: [
     CampaignListComponent,
-    AddCampaignFormComponent,
+    EditCampaignFormComponent,
     DeleteCampaignModalComponent,
     AddCampaignModalComponent
   ],

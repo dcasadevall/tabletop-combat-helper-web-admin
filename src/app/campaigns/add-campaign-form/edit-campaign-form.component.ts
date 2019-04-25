@@ -5,11 +5,11 @@ import { CampaignService } from '../campaign-service';
 import { Campaign } from '../models/campaign';
 
 @Component({
-  selector: 'app-add-campaign-form',
-  templateUrl: './add-campaign-form.component.html',
-  styleUrls: ['./add-campaign-form.component.css']
+  selector: 'app-edit-campaign-form',
+  templateUrl: './edit-campaign-form.component.html',
+  styleUrls: ['./edit-campaign-form.component.css']
 })
-export class AddCampaignFormComponent implements OnInit {
+export class EditCampaignFormComponent implements OnInit {
   public modalOptions: Materialize.ModalOptions = {
     dismissible: false, // Modal can't be dismissed by clicking outside of the modal
   };

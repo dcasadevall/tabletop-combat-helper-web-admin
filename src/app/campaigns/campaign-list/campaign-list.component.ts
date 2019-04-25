@@ -1,6 +1,6 @@
 import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { CampaignService } from '../campaign-service';
-import { AddCampaignFormComponent } from '../add-campaign-form/add-campaign-form.component';
+import { EditCampaignFormComponent } from '../add-campaign-form/edit-campaign-form.component';
 import { MzModalComponent } from 'ngx-materialize';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
