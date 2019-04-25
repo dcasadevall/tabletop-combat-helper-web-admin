@@ -10,6 +10,16 @@ export interface SSOService {
   email: string;
 
   /**
+   * If not null, the name of the user associated to the SSO account used to sign in.
+   */
+  name: string;
+
+  /**
+   * If not null, the url for the profile image associated to the SSO account used to sign in.
+   */
+  imageUrl: string;
+
+  /**
    * Attempts to sign in with the default SSO provider (currently the only implementation of this interface
    * only uses Google).
    */

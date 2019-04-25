@@ -5,12 +5,13 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { SSOModule } from '../sso/sso.module';
-import { MzNavbarModule } from 'ngx-materialize';
+import { MzNavbarModule, MzSidenavModule } from 'ngx-materialize';
 
 @NgModule({
   imports: [
     CommonModule,
     MzNavbarModule,
+    MzSidenavModule,
     RouterModule,
     SSOModule
   ],

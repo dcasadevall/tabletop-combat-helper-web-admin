@@ -9,8 +9,17 @@ import { SSOServiceProvider } from '../../sso/sso.module';
 })
 export class HeaderComponent {
   @Input() title: string;
+
+  public get name(): string {
+    return this.ssoService.name;
+  }
+
   public get email(): string {
     return this.ssoService.email;
+  }
+
+  public get imageUrl(): string {
+    return this.ssoService.imageUrl;
   }
 
   public get isLoggedIn(): boolean {

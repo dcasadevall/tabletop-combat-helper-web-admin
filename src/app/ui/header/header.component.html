@@ -1,11 +1,20 @@
 <header>
-    <mz-navbar>
-      <a href="#" class="brand-logo">{{title}}</a>
-      <mz-navbar-item-container [align]="'right'" *ngIf="isLoggedIn">
-        <mz-navbar-item><a routerLink="/campaigns" routerLinkActive="active">Campaigns</a></mz-navbar-item>
-        <mz-navbar-item><a routerLink="/maps" routerLinkActive="active">Maps</a></mz-navbar-item>
-        <mz-navbar-item><a routerLink="/units" routerLinkActive="active">Units</a></mz-navbar-item>
-        <mz-navbar-item><a routerLink="/packages" routerLinkActive="active">Packages</a></mz-navbar-item>
+  <mz-navbar>
+    <a href="#" class="brand-logo">{{title}}</a>
+    <ng-container *ngIf="isLoggedIn">
+      <mz-navbar-item-container class="hide-on-med-and-down" [align]="'right'">
+        <mz-navbar-item>
+          <a routerLink="/campaigns" routerLinkActive="active">Campaigns</a>
+        </mz-navbar-item>
+        <mz-navbar-item>
+          <a routerLink="/maps" routerLinkActive="active">Maps</a>
+        </mz-navbar-item>
+        <mz-navbar-item>
+          <a routerLink="/units" routerLinkActive="active">Units</a>
+        </mz-navbar-item>
+        <mz-navbar-item>
+          <a routerLink="/packages" routerLinkActive="active">Packages</a>
+        </mz-navbar-item>
         <mz-navbar-item>
           <a class="dropdown-button" href="javascript:void(0)" data-activates="account-dropdown">
             {{email}}
@@ -13,9 +22,49 @@
           </a>
         </mz-navbar-item>
       </mz-navbar-item-container>
-    </mz-navbar>
+      <mz-navbar-item-container class="hide-on-large-only">
+        <mz-navbar-item>
+          <a id="btn-sidenav"><i class="material-icons">menu</i></a>
+        </mz-navbar-item>
+      </mz-navbar-item-container>
+    </ng-container>
+  </mz-navbar>
 
-    <ul id="account-dropdown" class="dropdown-content">
-      <li><a href="javascript:void(0)" routerLink="/logout">Sign Out</a></li>
-    </ul>
+  <ul id="account-dropdown" class="dropdown-content">
+    <li><a href="javascript:void(0)" routerLink="/logout">Sign Out</a></li>
+  </ul>
 </header>
+
+<!-- Side nav -->
+<mz-sidenav
+  *ngIf="isLoggedIn"
+  [id]="'sidenav'"
+>
+  <li>
+    <div class="user-view">
+      <div class="background">
+        <img src="assets/img/sidenav_bg.png">
+      </div>
+      <a href="#user"><img class="circle" src="{{imageUrl}}"></a>
+      <a href="#name"><span class="text name">{{name}}</span></a>
+      <a href="#email"><span class="white-text email">{{email}}</span></a>
+    </div>
+  </li>
+  <mz-sidenav-link>
+    <a routerLink="/campaigns" class="waves-effect" routerLinkActive="active">Campaigns</a>
+  </mz-sidenav-link>
+  <mz-sidenav-link>
+    <a routerLink="/maps" class="waves-effect" routerLinkActive="active">Maps</a>
+  </mz-sidenav-link>
+  <mz-sidenav-link>
+    <a routerLink="/units" class="waves-effect" routerLinkActive="active">Units</a>
+  </mz-sidenav-link>
+  <mz-sidenav-link>
+    <a routerLink="/packages" routerLinkActive="active">Packages</a>
+  </mz-sidenav-link>
+  <mz-sidenav-divider></mz-sidenav-divider>
+  <mz-sidenav-link>
+    <a href="javascript:void(0)" class="waves-effect" routerLink="/logout">Sign Out</a>
+  </mz-sidenav-link>
+</mz-sidenav>
+

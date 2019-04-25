@@ -4,7 +4,7 @@ import { AddCampaignFormComponent } from '../add-campaign-form/add-campaign-form
 import { MzModalComponent } from 'ngx-materialize';
 import { Observable } from 'rxjs';
 import { CampaignRowsPipe } from './campaign-rows.pipe';
-import { map } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-campaign-list',
@@ -17,7 +17,8 @@ export class CampaignListComponent {
   public createCampaignButton: ElementRef;
 
   public get rows$(): Observable<Object[]> {
-    return this.campaignService.campaigns.pipe(map(campaigns => campaigns.map(campaign => new Object({'Campaign Name': campaign.name}))));
+    return this.campaignService.campaigns.pipe(first(),
+      map(campaigns => campaigns.map(campaign => new Object({'Campaign Name': campaign.name}))));
   }
 
   public columns = [
