@@ -8,6 +8,9 @@ import { LoginModule } from './login/login.module';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { HomePageComponent } from './home-page/home-page.component';
 import { SSOModule } from './sso/sso.module';
+import { CampaignsModule } from './campaigns/campaigns.module';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { SSOModule } from './sso/sso.module';
   ],
   imports: [
     AngularFontAwesomeModule,
+    BrowserAnimationsModule,
     BrowserModule,
+    CampaignsModule,
+    NgxDatatableModule,
     UiModule,
     AppRoutingModule,
     LoginModule,

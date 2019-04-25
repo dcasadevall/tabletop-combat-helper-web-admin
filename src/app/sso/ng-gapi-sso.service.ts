@@ -4,7 +4,6 @@ import { GoogleAuthService } from 'ng-gapi';
 import GoogleUser = gapi.auth2.GoogleUser;
 import { first, map } from 'rxjs/operators';
 import { Observable, ReplaySubject } from 'rxjs';
-import GoogleAuth = gapi.auth2.GoogleAuth;
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +11,9 @@ import GoogleAuth = gapi.auth2.GoogleAuth;
 export class NgGapiSsoService implements SSOService {
   private static SESSION_STORAGE_KEY = 'google-accessToken';
   private static EMAIL_STORAGE_KEY = 'google-email';
+  private static NAME_STORAGE_KEY = 'google-name';
+  private static IMAGE_URL_STORAGE_KEY = 'google-imageUrl';
+
   private authenticatedUsers: ReplaySubject<GoogleUser> = new ReplaySubject(1);
 
   constructor(private googleAuth: GoogleAuthService) {
@@ -22,8 +24,16 @@ export class NgGapiSsoService implements SSOService {
     return sessionStorage.getItem(NgGapiSsoService.SESSION_STORAGE_KEY) != null;
   }
 
+  public get name(): string {
+    return sessionStorage.getItem(NgGapiSsoService.NAME_STORAGE_KEY);
+  }
+
   public get email(): string {
     return sessionStorage.getItem(NgGapiSsoService.EMAIL_STORAGE_KEY);
+  }
+
+  public get imageUrl(): string {
+    return sessionStorage.getItem(NgGapiSsoService.IMAGE_URL_STORAGE_KEY);
   }
 
   public signIn(): Promise<boolean> {
@@ -36,7 +46,15 @@ export class NgGapiSsoService implements SSOService {
         );
 
         sessionStorage.setItem(
+          NgGapiSsoService.NAME_STORAGE_KEY, signedInUser.getBasicProfile().getName()
+        );
+
+        sessionStorage.setItem(
           NgGapiSsoService.EMAIL_STORAGE_KEY, signedInUser.getBasicProfile().getEmail()
+        );
+
+        sessionStorage.setItem(
+          NgGapiSsoService.IMAGE_URL_STORAGE_KEY, signedInUser.getBasicProfile().getImageUrl()
         );
 
         return true;

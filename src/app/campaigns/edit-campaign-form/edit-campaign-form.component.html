@@ -1,0 +1,26 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+  <div class="row m-valign-wrapper">
+    <mz-input-container class="col s12 m3">
+      <input mz-input mz-validation required
+             id="campaign-name"
+             formControlName="name"
+             type="text"
+             (ngModel)="campaign.name"
+             [errorMessageResource]="errorMessages.name"
+             [label]="'Campaign Name'"
+             [attr.placeholder]="'Campaign Name'">
+    </mz-input-container>
+    <mz-select-container class="col s12 m3">
+      <select mz-select multiple #select
+              (ngModel)="fakePackages"
+              id="campaign-packages"
+              attr.formControlName="packages"
+              [label]="'Packages'"
+              [attr.placeholder]="'Choose Packages'">
+        <option>Forest</option>
+        <option>Desert</option>
+        <option>Future</option>
+      </select>
+    </mz-select-container>
+  </div>
+</form>

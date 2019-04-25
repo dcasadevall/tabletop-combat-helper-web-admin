@@ -1,21 +1,52 @@
-<nav class="navbar navbar-dark bg-dark mb-5">
-  <a class="navbar-brand" href="/">{{title}}</a>
-  <div class="navbar-expand mr-auto" *ngIf="isLoggedIn">
-    <ul class="navbar-nav mr-auto">
-      <li class="navbar-nav">
-        <a class="nav-item nav-link" routerLinkActive="active" routerLink="/campaigns">Campaigns</a>
-        <a class="nav-item nav-link" routerLinkActive="active" routerLink="/packages">Packages</a>
-        <a class="nav-item nav-link" routerLinkActive="active" routerLink="/units">Units</a>
-        <a class="nav-item nav-link" routerLinkActive="active" routerLink="/maps">Maps</a>
-      </li>
-    </ul>
-  </div>
-  <div class="navbar-expand ml-auto navbar-nav" *ngIf="isLoggedIn">
-    <div class="navbar-nav">
-      <span class="nav-item nav-link">{{email}}</span>
-      <a class="nav-item nav-link" routerLink="/logout">
-        <i class="fa fa-close"></i>
-      </a>
+<header>
+  <mz-navbar>
+    <a href="#" class="brand-logo">{{title}}</a>
+    <ng-container *ngIf="isLoggedIn">
+      <mz-navbar-item-container class="right">
+        <mz-navbar-item>
+          <a href="#" id="btn-sidenav"><i class="material-icons">menu</i></a>
+        </mz-navbar-item>
+      </mz-navbar-item-container>
+    </ng-container>
+  </mz-navbar>
+
+  <ul id="account-dropdown" class="dropdown-content">
+    <li><a href="javascript:void(0)" routerLink="/logout">Sign Out</a></li>
+  </ul>
+</header>
+
+<!-- Side nav -->
+<mz-sidenav
+  *ngIf="isLoggedIn"
+  [edge]="'right'"
+  [id]="'sidenav'"
+  [collapseButtonId]="'btn-sidenav'"
+>
+  <li>
+    <div class="user-view">
+      <div class="background">
+        <img src="assets/img/sidenav_bg.png">
+      </div>
+      <a href="#user"><img class="circle" src="{{imageUrl}}"></a>
+      <a href="#name"><span class="white-text name">{{name}}</span></a>
+      <a href="#email"><span class="white-text email">{{email}}</span></a>
     </div>
-  </div>
-</nav>
+  </li>
+  <mz-sidenav-link>
+    <a routerLink="/campaigns" class="waves-effect" routerLinkActive="active">Campaigns</a>
+  </mz-sidenav-link>
+  <mz-sidenav-link>
+    <a routerLink="/maps" class="waves-effect" routerLinkActive="active">Maps</a>
+  </mz-sidenav-link>
+  <mz-sidenav-link>
+    <a routerLink="/units" class="waves-effect" routerLinkActive="active">Units</a>
+  </mz-sidenav-link>
+  <mz-sidenav-link>
+    <a routerLink="/packages" routerLinkActive="active">Packages</a>
+  </mz-sidenav-link>
+  <mz-sidenav-divider></mz-sidenav-divider>
+  <mz-sidenav-link>
+    <a href="javascript:void(0)" class="waves-effect" routerLink="/logout">Sign Out</a>
+  </mz-sidenav-link>
+</mz-sidenav>
+

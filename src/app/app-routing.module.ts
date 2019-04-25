@@ -4,12 +4,17 @@ import { LoginGuard } from './login/login.guard';
 import { LoginComponent } from './login/login/login.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LogoutComponent } from './login/logout/logout.component';
+import { CampaignListComponent } from './campaigns/campaign-list/campaign-list.component';
 
 const routes: Routes = [
   // Guard base path so it can't be accessed without a valid authentication
   {
     path: '',
     component: HomePageComponent,
+  },
+  {
+    path: 'campaigns',
+    component: CampaignListComponent,
     canActivate: [LoginGuard],
   },
   {
