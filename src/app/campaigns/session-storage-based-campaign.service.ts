@@ -39,7 +39,7 @@ export class SessionStorageBasedCampaignService implements CampaignService {
     return Promise.resolve(campaign.campaignId);
   }
 
-  public async saveCampaign(name: string, campaignId: string): Promise {
+  public async saveCampaign(name: string, campaignId: string): Promise<void> {
     const existingCampaign = this.campaignsSync.find((campaignInArray) => campaignInArray.campaignId === campaignId);
     if (existingCampaign === null) {
       throw new Error('Invalid campaignId: ' + campaignId);
@@ -50,7 +50,7 @@ export class SessionStorageBasedCampaignService implements CampaignService {
     return Promise.resolve();
   }
 
-  public async deleteCampaign(campaignId: string): Promise {
+  public async deleteCampaign(campaignId: string): Promise<void> {
     const campaigns = await this.campaigns.toPromise();
     const campaign = campaigns.filter((campaignInList) => campaignInList.campaignId === campaignId).pop();
     if (campaign == null) {

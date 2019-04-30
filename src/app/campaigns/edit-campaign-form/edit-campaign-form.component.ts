@@ -47,9 +47,9 @@ export class EditCampaignFormComponent implements OnInit {
     }
   }
 
-  public onSubmit(): Promise {
+  public onSubmit(): Promise<void> {
     if (!this.form.valid) {
-      return Promise.resolve(false);
+      throw new Error('Invalid form submitted.');
     }
 
     if (this.campaign.campaignId != null) {
@@ -59,14 +59,16 @@ export class EditCampaignFormComponent implements OnInit {
     }
   }
 
-  private addCampaign(): Promise {
+  private addCampaign(): Promise<void> {
     this.campaign = Object.assign({}, this.form.value);
     return this.campaignService.addCampaign(this.campaign.name).then(campaignId => {
-      return campaignId != null;
+      if (campaignId != null) {
+        throw new Error('Error saving campaign with id: ' + campaignId);
+      }
     });
   }
 
-  private saveCampaign(campaignId: string): Promise {
+  private saveCampaign(campaignId: string): Promise<void> {
     this.campaign = Object.assign({}, this.form.value);
     return this.campaignService.saveCampaign(this.campaign.name, campaignId);
   }

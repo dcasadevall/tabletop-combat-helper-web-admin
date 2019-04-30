@@ -40,3 +40,4 @@ Thumbs.db
 
 # Ignore environments that we don't want in github :)
 environment.dcasadevall.ts
+environment.docker.ts

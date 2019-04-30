@@ -21,11 +21,11 @@ export interface CampaignService {
    * @param name Newly assigned name.
    * @param campaignId Identifier of the campaign to be saved.
    */
-  saveCampaign(name: string, campaignId: string): Promise;
+  saveCampaign(name: string, campaignId: string): Promise<void>;
 
   /**
    * Deletes the campaign with the given UUID. Returns true if successful, and false otherwise.
    * @param campaignId A Unique identifier for the campaign to delete.
    */
-  deleteCampaign(campaignId: string): Promise;
+  deleteCampaign(campaignId: string): Promise<void>;
 }
