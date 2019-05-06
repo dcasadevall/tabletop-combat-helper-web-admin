@@ -14,6 +14,8 @@ import { EditCampaignFormComponent } from './edit-campaign-form/edit-campaign-fo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeleteCampaignModalComponent } from './delete-campaign-modal/delete-campaign-modal.component';
 import { EditCampaignModalComponent } from './edit-campaign-modal/edit-campaign-modal.component';
+import { HttpApiCampaignService } from './http-api-campaign.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { EditCampaignModalComponent } from './edit-campaign-modal/edit-campaign-
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     MzButtonModule,
@@ -37,7 +40,7 @@ import { EditCampaignModalComponent } from './edit-campaign-modal/edit-campaign-
   providers: [
     {
       provide: 'CampaignService',
-      useClass: SessionStorageBasedCampaignService
+      useClass: HttpApiCampaignService
     }
   ]
 })

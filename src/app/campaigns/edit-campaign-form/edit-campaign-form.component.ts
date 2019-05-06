@@ -61,8 +61,8 @@ export class EditCampaignFormComponent implements OnInit {
 
   private addCampaign(): Promise<void> {
     this.campaign = Object.assign({}, this.form.value);
-    return this.campaignService.addCampaign(this.campaign.name).then(campaignId => {
-      if (campaignId != null) {
+    return this.campaignService.createCampaign(this.campaign.name).then(campaignId => {
+      if (campaignId == null) {
         throw new Error('Error saving campaign with id: ' + campaignId);
       }
     });

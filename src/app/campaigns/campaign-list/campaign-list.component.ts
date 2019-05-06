@@ -1,26 +1,49 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { CampaignService } from '../campaign-service';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { EditCampaignModalComponent } from '../edit-campaign-modal/edit-campaign-modal.component';
+import { Campaign } from '../models/campaign';
 
 @Component({
   selector: 'app-campaign-list',
   templateUrl: './campaign-list.component.html',
   styleUrls: ['./campaign-list.component.css']
 })
-export class CampaignListComponent {
+export class CampaignListComponent implements OnInit {
+
+  constructor(@Inject('CampaignService') private campaignService: CampaignService) {
+  }
+
   @ViewChild('editCampaignModal')
   public editCampaignModal: EditCampaignModalComponent;
 
-  public get rows$(): Observable<Object[]> {
-    return this.campaignService.campaigns.pipe(first(),
-      map(campaigns => campaigns.map(campaign => new Object({
-        'campaign': campaign
-      }))));
+  public rows: Object[];
+
+  private static mapCampaignRow(campaign: Campaign): Object {
+    return new Object({
+      'campaign': campaign
+    });
   }
 
-  constructor(@Inject('CampaignService') private campaignService: CampaignService) {
+  public ngOnInit(): void {
+    this.campaignService.campaigns.subscribe(campaigns => {
+      this.rows = campaigns.map(CampaignListComponent.mapCampaignRow);
+    });
+
+    this.campaignService.campaignCreated.subscribe(campaign => {
+      this.rows = this.rows.concat(CampaignListComponent.mapCampaignRow(campaign));
+    });
+
+    this.campaignService.campaignSaved.subscribe(campaign => {
+      this.rows = this.rows.map(row => row['campaign'].campaignId === campaign.campaignId ?
+        CampaignListComponent.mapCampaignRow(campaign) :
+        row);
+    });
+
+    this.campaignService.campaignRemoved.subscribe(campaignId => {
+      this.rows = this.rows.filter(row => row['campaign'].campaignId !== campaignId);
+    });
   }
 
   public handleRowActivated(event: any) {

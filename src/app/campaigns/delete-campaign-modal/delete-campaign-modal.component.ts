@@ -36,7 +36,7 @@ export class DeleteCampaignModalComponent {
   }
 
   public handleDeleteClicked(): void {
-    this.campaignService.deleteCampaign(this._campaign.campaignId).then(() => {
+    this.campaignService.removeCampaign(this._campaign.campaignId).then(() => {
       this.modal.closeModal();
     }).catch(reason => this.toastService.show('Error deleting campaign.', 4000, 'red'));
   }
