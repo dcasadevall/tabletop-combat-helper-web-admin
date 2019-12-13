@@ -1,3 +1,7 @@
+# DEPRECATED
+
+This web admin is deprecated since we use asset bundles to load content for the Unity Client.
+
 # Tabletop Combat Helper
 
 Web client used to create the data used by the Tabletop Combat Helper unity client.
